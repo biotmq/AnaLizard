@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AnaLizard Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+</head>
+<body data-config="population">
+    <div id="app-container">
+        <div id="left-column" class="column">
+            <h2>Countries</h2>
+            <div id="country-selection"></div>
+        </div>
+        <div id="middle-column" class="column">
+            <div id="tabs">
+                <button class="tab-button active" data-tab="spreadsheet">Spreadsheet</button>
+                <button class="tab-button" data-tab="pie-chart">Pie Chart</button>
+                <button class="tab-button" data-tab="charts">Charts</button>
+                <button class="tab-button" data-tab="user-guide">User Guide</button>
+            </div>
+            <div id="tab-content">
+                <div id="spreadsheet" class="tab-pane active">
+                    <h1>Population Data</h1>
+                    <div id="table-container">
+                        <table id="tree-table">
+                            <thead>
+                                <tr>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div id="pie-chart" class="tab-pane">
+                    <h2>Population by Continent</h2>
+                    <canvas id="population-pie-chart"></canvas>
+                </div>
+                <div id="charts" class="tab-pane">
+                    <h2>Selected Charts</h2>
+                    <p>This tab is a placeholder for charts selected from the right column.</p>
+                </div>
+                <div id="user-guide" class="tab-pane">
+                    <h2>User Guide</h2>
+                    <p>This is a placeholder for the user guide.</p>
+                </div>
+            </div>
+        </div>
+        <div id="right-column" class="column">
+            <h2>Chart Selection</h2>
+            <p>Placeholder for chart selection options.</p>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

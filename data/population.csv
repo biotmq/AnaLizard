@@ -1,0 +1,18 @@
+Continent,Nation,State,City,Street,People,Zip Code,GDP,Unemployed,Labor Force,Access to Ocean,Airport
+North America,USA,California,Los Angeles,Hollywood Blvd,3000000,90028,1000000000000,150000,3000000,Yes,LAX
+North America,USA,California,Los Angeles,Rodeo Drive,1000,90210,1000000000000,50,1000,Yes,LAX
+North America,USA,California,San Francisco,Lombard Street,2000,94133,800000000000,80,2000,Yes,SFO
+North America,USA,New York,New York City,Wall Street,8400000,10005,1200000000000,420000,8400000,Yes,JFK
+North America,USA,New York,New York City,Broadway,8400000,10003,1200000000000,420000,8400000,Yes,JFK
+North America,USA,New York,Manhattan,5th Avenue,1600000,10016,600000000000,64000,1600000,Yes,JFK
+North America,USA,New York,Brooklyn,Coney Island Avenue,2600000,11223,300000000000,156000,2600000,Yes,JFK
+North America,USA,New York,Queens,Queens Boulevard,2300000,11375,250000000000,115000,2300000,Yes,JFK
+North America,USA,New York,Bronx,Grand Concourse,1400000,10451,100000000000,98000,1400000,Yes,JFK
+North America,USA,New York,Staten Island,Richmond Road,500000,10306,50000000000,20000,500000,Yes,EWR
+North America,Canada,Ontario,Toronto,Yonge Street,2900000,M5B 2H1,600000000000,174000,2900000,Yes,YYZ
+South America,Brazil,Rio de Janeiro,Rio de Janeiro,Copacabana,6320000,22070-002,400000000000,758400,6320000,Yes,GIG
+Europe,UK,England,London,Abbey Road,8900000,NW8 9AY,900000000000,356000,8900000,Yes,LHR
+Europe,France,Île-de-France,Paris,Champs-Élysées,2100000,75008,700000000000,168000,2100000,No,CDG
+Asia,Japan,Tokyo,Shibuya,Shibuya Crossing,14000000,150-8010,1500000000000,280000,14000000,Yes,HND
+Africa,Egypt,Cairo,Cairo,Tahrir Square,9700000,11511,300000000000,970000,9700000,No,CAI
+Australia,Australia,New South Wales,Sydney,George Street,5300000,2000,500000000000,265000,5300000,Yes,SYD

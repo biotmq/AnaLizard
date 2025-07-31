@@ -1,0 +1,165 @@
+body {
+    font-family: sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+#app-container {
+    display: flex;
+    height: 100vh;
+}
+
+.column {
+    padding: 20px;
+    background-color: #fff;
+    border-right: 1px solid #ddd;
+    overflow-y: auto;
+}
+
+#left-column {
+    flex: 0 0 200px;
+    border-right: 1px solid #ddd;
+}
+
+#middle-column {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+#right-column {
+    flex: 0 0 250px;
+    border-left: 1px solid #ddd;
+}
+
+#tabs {
+    display: flex;
+    border-bottom: 1px solid #ddd;
+}
+
+.tab-button {
+    padding: 10px 15px;
+    border: none;
+    background-color: #f2f2f2;
+    cursor: pointer;
+    outline: none;
+    font-size: 16px;
+    border-right: 1px solid #ddd;
+}
+
+.tab-button.active {
+    background-color: #fff;
+    border-bottom: 1px solid #fff;
+}
+
+#tab-content {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.tab-pane:not(.active) h1,
+.tab-pane:not(.active) h2 {
+    display: none;
+}
+
+.tab-pane {
+    display: none;
+    flex-direction: column; /* Ensure content stacks vertically */
+    align-items: center; /* Center content horizontally */
+    justify-content: flex-start; /* Align content to the top */
+}
+
+.tab-pane.active {
+    display: flex;
+}
+
+#pie-chart h2 {
+    margin-bottom: 20px; /* Add some space below the heading */
+}
+
+/* Existing table styles, adjusted for new layout */
+#table-container {
+    width: 100%; /* Adjusted for new column layout */
+    margin: 0 auto;
+    max-height: calc(100vh - 200px); /* Adjust based on header/footer */
+    overflow: auto;
+}
+
+#tree-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+#tree-table th, #tree-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+#tree-table th {
+    background-color: #f2f2f2;
+    position: sticky;
+    top: 0;
+}
+
+.expand-icon {
+    cursor: pointer;
+    margin-right: 5px;
+    font-family: monospace;
+    display: inline-block;
+    width: 10px;
+    text-align: center;
+}
+
+.negative-value {
+    background-color: #ffdddd;
+}
+
+.col-color-grey {
+    background-color: #f0f0f0;
+}
+
+.col-color-green {
+    background-color: #e6ffe6;
+}
+
+.col-color-blue {
+    background-color: #e6f2ff;
+}
+
+/* Country selection tiles */
+#country-selection {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+
+.country-tile {
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #f9f9f9;
+    font-size: 14px;
+}
+
+.country-tile.selected {
+    background-color: #007bff;
+    color: white;
+    border-color: #007bff;
+}
+
+/* Pie Chart Specific Styles */
+#pie-chart {
+    height: 400px; /* Set a fixed height for the pie chart container */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#population-pie-chart {
+    max-height: 100%; /* Ensure canvas doesn't overflow its parent */
+    max-width: 100%;
+}

@@ -1,0 +1,23 @@
+{
+    "csv_path": "data/population.csv",
+    "drill_down_fields": ["Continent", "Nation", "State", "City"],
+    "sum_columns": ["People", "GDP", "Unemployed", "Labor Force"],
+    "label_columns": ["Access to Ocean", "Airport", "Zip Code"],
+    "calculated_columns": [
+        {
+            "name": "Unemployment Rate",
+            "calculation": "percentage",
+            "numerator": "Unemployed",
+            "denominator": "Labor Force"
+        }
+    ],
+    "display_columns": [
+        {"name": "name", "color": "GREY"},
+        {"name": "People", "color": "GREEN"},
+        {"name": "GDP", "color": "BLUE"},
+        {"name": "Unemployment Rate", "color": "GREEN"},
+        {"name": "Access to Ocean", "color": "BLUE"},
+        {"name": "Airport", "color": "GREEN"},
+        {"name": "Zip Code", "color": "BLUE"}
+    ]
+}
