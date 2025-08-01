@@ -1,0 +1,11 @@
+{
+    "csv_path": "data/oecd_unemployment.csv",
+    "drill_down_fields": ["Country", "Year"],
+    "sum_columns": ["Unemployment_Rate"],
+    "label_columns": [],
+    "calculated_columns": [],
+    "display_columns": [
+        {"name": "name", "color": "GREY"},
+        {"name": "Unemployment_Rate", "color": "RED"}
+    ]
+}

@@ -14,7 +14,7 @@ def test_index(client):
 
 def test_get_data(client):
     """Test the /data endpoint."""
-    rv = client.get('/data')
+    rv = client.get('/data?dataset=Population')
     assert rv.status_code == 200
     json_data = rv.get_json()
     assert 'headers' in json_data
@@ -22,14 +22,14 @@ def test_get_data(client):
 
 def test_get_countries(client):
     """Test the /countries endpoint."""
-    rv = client.get('/countries')
+    rv = client.get('/countries?dataset=Population')
     assert rv.status_code == 200
     json_data = rv.get_json()
     assert isinstance(json_data, list)
 
 def test_get_pie_chart_data(client):
     """Test the /pie_chart_data endpoint."""
-    rv = client.get('/pie_chart_data')
+    rv = client.get('/pie_chart_data?dataset=Population')
     assert rv.status_code == 200
     json_data = rv.get_json()
     assert isinstance(json_data, list)
@@ -39,7 +39,7 @@ def test_get_pie_chart_data(client):
 
 def test_get_data_with_country_filter(client):
     """Test the /data endpoint with a country filter."""
-    rv = client.get('/data?countries=USA')
+    rv = client.get('/data?dataset=Population&countries=USA')
     assert rv.status_code == 200
     json_data = rv.get_json()
     assert 'headers' in json_data

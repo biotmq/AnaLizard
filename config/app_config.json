@@ -1,0 +1,50 @@
+{
+  "datasets": [
+    {
+      "name": "Population",
+      "csv_path": "data/population.csv",
+      "config_path": "config/population.json",
+      "color": "#FFC0CB",
+      "order": 1,
+      "group": "Demographics"
+    },
+    {
+      "name": "GDP",
+      "csv_path": "data/gdp.csv",
+      "config_path": "config/gdp.json",
+      "color": "#B0E0E6",
+      "order": 2,
+      "group": "Demographics"
+    },
+    {
+      "name": "OECD GDP",
+      "csv_path": "data/oecd_gdp.csv",
+      "config_path": "config/oecd_gdp.json",
+      "color": "#FFD700",
+      "order": 4,
+      "group": "OECD"
+    },
+    {
+      "name": "OECD Inflation",
+      "csv_path": "data/oecd_inflation.csv",
+      "config_path": "config/oecd_inflation.json",
+      "color": "#FF8C00",
+      "order": 5,
+      "group": "OECD"
+    },
+    {
+      "name": "OECD Unemployment",
+      "csv_path": "data/oecd_unemployment.csv",
+      "config_path": "config/oecd_unemployment.json",
+      "color": "#DC143C",
+      "order": 6,
+      "group": "OECD"
+    },
+    {
+      "name": "Raw Data Example",
+      "csv_path": "data/raw_data.csv",
+      "color": "#ADD8E6",
+      "order": 7
+    }
+  ]
+}

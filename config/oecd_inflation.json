@@ -1,0 +1,11 @@
+{
+    "csv_path": "data/oecd_inflation.csv",
+    "drill_down_fields": ["Country", "Year"],
+    "sum_columns": ["Inflation_Rate"],
+    "label_columns": [],
+    "calculated_columns": [],
+    "display_columns": [
+        {"name": "name", "color": "GREY"},
+        {"name": "Inflation_Rate", "color": "GREEN"}
+    ]
+}

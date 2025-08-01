@@ -1,0 +1,11 @@
+{
+    "csv_path": "data/gdp.csv",
+    "drill_down_fields": ["Country", "Year"],
+    "sum_columns": ["GDP"],
+    "label_columns": [],
+    "calculated_columns": [],
+    "display_columns": [
+        {"name": "name", "color": "GREY"},
+        {"name": "GDP", "color": "BLUE"}
+    ]
+}

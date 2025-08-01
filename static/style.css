@@ -36,6 +36,7 @@ body {
 #tabs {
     display: flex;
     border-bottom: 1px solid #ddd;
+    align-items: flex-end;
 }
 
 .tab-button {
@@ -50,7 +51,25 @@ body {
 
 .tab-button.active {
     background-color: #fff;
-    border-bottom: 1px solid #fff;
+}
+
+#dataset-tabs {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.tab-group {
+    display: flex;
+    flex-direction: column;
+    margin-right: 10px;
+}
+
+.tab-group-header {
+    font-weight: bold;
+    padding: 5px 10px;
+    background-color: #e0e0e0;
+    border-bottom: 1px solid #ddd;
+    text-align: center;
 }
 
 #tab-content {

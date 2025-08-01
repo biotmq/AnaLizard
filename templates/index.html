@@ -7,22 +7,16 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
 </head>
-<body data-config="population">
+<body>
     <div id="app-container">
         <div id="left-column" class="column">
             <h2>Countries</h2>
             <div id="country-selection"></div>
         </div>
         <div id="middle-column" class="column">
-            <div id="tabs">
-                <button class="tab-button active" data-tab="spreadsheet">Spreadsheet</button>
-                <button class="tab-button" data-tab="pie-chart">Pie Chart</button>
-                <button class="tab-button" data-tab="charts">Charts</button>
-                <button class="tab-button" data-tab="user-guide">User Guide</button>
-            </div>
+            <div id="tabs"></div>
             <div id="tab-content">
                 <div id="spreadsheet" class="tab-pane active">
-                    <h1>Population Data</h1>
                     <div id="table-container">
                         <table id="tree-table">
                             <thead>

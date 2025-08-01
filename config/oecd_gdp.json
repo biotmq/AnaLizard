@@ -1,0 +1,11 @@
+{
+    "csv_path": "data/oecd_gdp.csv",
+    "drill_down_fields": ["Country", "Year"],
+    "sum_columns": ["GDP_USD_Billion"],
+    "label_columns": [],
+    "calculated_columns": [],
+    "display_columns": [
+        {"name": "name", "color": "GREY"},
+        {"name": "GDP_USD_Billion", "color": "BLUE"}
+    ]
+}

@@ -1,75 +1,148 @@
 document.addEventListener('DOMContentLoaded', () => {
     const tableHead = document.querySelector('#tree-table thead tr');
     const tableBody = document.querySelector('#tree-table tbody');
-    const configName = document.body.dataset.config;
     const countrySelectionDiv = document.getElementById('country-selection');
-    const tabButtons = document.querySelectorAll('.tab-button');
-    const tabPanes = document.querySelectorAll('.tab-pane');
+    const tabsContainer = document.getElementById('tabs');
+    const tabContent = document.getElementById('tab-content');
+    const pieChartContainer = document.getElementById('pie-chart');
+    const pieChartButton = createTabButton({ name: 'Pie Chart' }, 'pie-chart');
 
     let selectedCountries = [];
-    let myPieChart; // To store the Chart.js instance
+    let myPieChart;
+    let datasets = [];
+    let activeDatasetName = '';
 
-    // --- Tab Switching Logic ---
-    tabButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            const tab = button.dataset.tab;
-
-            tabButtons.forEach(btn => btn.classList.remove('active'));
-            button.classList.add('active');
-
-            tabPanes.forEach(pane => {
-                pane.classList.remove('active');
-                // Destroy chart if tab is switched away from pie chart
-                if (pane.id === 'pie-chart' && myPieChart) {
-                    myPieChart.destroy();
-                    myPieChart = null;
-                }
-            });
-            document.getElementById(tab).classList.add('active');
-
-            // Render content for the active tab
-            if (tab === 'spreadsheet') {
-                renderSpreadsheet();
-            } else if (tab === 'pie-chart') {
-                renderPieChart();
-            }
-        });
-    });
-
-    // --- Country Selection Logic ---
-    function fetchCountries() {
-        fetch(`/countries?config=${configName}`)
+    function fetchDatasets() {
+        fetch('/datasets')
             .then(response => response.json())
-            .then(countries => {
-                countrySelectionDiv.innerHTML = ''; // Clear previous tiles
-                countries.forEach(country => {
-                    const tile = document.createElement('div');
-                    tile.classList.add('country-tile');
-                    tile.textContent = country;
-                    tile.addEventListener('click', () => {
-                        tile.classList.toggle('selected');
-                        if (tile.classList.contains('selected')) {
-                            selectedCountries.push(country);
-                        } else {
-                            selectedCountries = selectedCountries.filter(c => c !== country);
-                        }
-                        // Re-render active tab content with new country selection
-                        const activeTab = document.querySelector('.tab-button.active').dataset.tab;
-                        if (activeTab === 'spreadsheet') {
-                            renderSpreadsheet();
-                        } else if (activeTab === 'pie-chart') {
-                            renderPieChart();
-                        }
-                    });
-                    countrySelectionDiv.appendChild(tile);
-                });
+            .then(data => {
+                datasets = data;
+                renderTabs();
+                if (datasets.length > 0) {
+                    handleTabClick(datasets[0].name, 'spreadsheet');
+                }
             });
     }
 
-    // --- Data Fetching and Rendering Functions ---
+    function renderTabs() {
+        tabsContainer.innerHTML = '';
+        const groups = {};
+
+        datasets.forEach(dataset => {
+            const group = dataset.group || 'ungrouped';
+            if (!groups[group]) {
+                groups[group] = [];
+            }
+            groups[group].push(dataset);
+        });
+
+        for (const groupName in groups) {
+            if (groupName !== 'ungrouped') {
+                const groupContainer = document.createElement('div');
+                groupContainer.classList.add('tab-group');
+                const groupHeader = document.createElement('div');
+                groupHeader.classList.add('tab-group-header');
+                groupHeader.textContent = groupName;
+                groupContainer.appendChild(groupHeader);
+                tabsContainer.appendChild(groupContainer);
+
+                groups[groupName].forEach(dataset => {
+                    const button = createTabButton(dataset, 'spreadsheet');
+                    groupContainer.appendChild(button);
+                });
+            } else {
+                groups['ungrouped'].forEach(dataset => {
+                    const button = createTabButton(dataset, 'spreadsheet');
+                    tabsContainer.appendChild(button);
+                });
+            }
+        }
+        
+        tabsContainer.appendChild(pieChartButton);
+        tabsContainer.appendChild(createTabButton({ name: 'Charts' }, 'charts'));
+        tabsContainer.appendChild(createTabButton({ name: 'User Guide' }, 'user-guide'));
+    }
+
+    function createTabButton(dataset, tabId) {
+        const button = document.createElement('button');
+        button.classList.add('tab-button');
+        button.dataset.tab = tabId;
+        button.dataset.dataset = dataset.name;
+        button.textContent = dataset.name;
+        if (dataset.color) {
+            button.style.borderBottom = `3px solid ${dataset.color}`;
+        }
+        button.addEventListener('click', () => handleTabClick(dataset.name, tabId));
+        return button;
+    }
+
+    function handleTabClick(datasetName, tabId) {
+        activeDatasetName = datasetName;
+        selectedCountries = []; // Reset selected countries on any tab click
+
+        document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
+        document.querySelectorAll('.tab-pane').forEach(pane => pane.classList.remove('active'));
+
+        const activeButton = document.querySelector(`.tab-button[data-dataset="${datasetName}"][data-tab="${tabId}"]`);
+        if (activeButton) {
+            activeButton.classList.add('active');
+        }
+        
+        const activePane = document.getElementById(tabId);
+        if (activePane) {
+            activePane.classList.add('active');
+        }
+
+        if (activeDatasetName === 'Population') {
+            countrySelectionDiv.style.display = 'flex';
+            pieChartButton.style.display = 'block';
+        } else {
+            countrySelectionDiv.style.display = 'none';
+            pieChartButton.style.display = 'none';
+            if(myPieChart) {
+                myPieChart.destroy();
+                myPieChart = null;
+            }
+        }
+
+        if (tabId === 'spreadsheet') {
+            renderSpreadsheet();
+            fetchCountries();
+        } else if (tabId === 'pie-chart') {
+            renderPieChart();
+        }
+    }
+
+    function fetchCountries() {
+        fetch(`/countries?dataset=${activeDatasetName}`)
+            .then(response => response.json())
+            .then(countries => {
+                countrySelectionDiv.innerHTML = '';
+                if (countries.length > 0) {
+                    countries.forEach(country => {
+                        const tile = document.createElement('div');
+                        tile.classList.add('country-tile');
+                        tile.textContent = country;
+                        tile.addEventListener('click', () => {
+                            tile.classList.toggle('selected');
+                            if (tile.classList.contains('selected')) {
+                                selectedCountries.push(country);
+                            } else {
+                                selectedCountries = selectedCountries.filter(c => c !== country);
+                            }
+                            renderSpreadsheet();
+                        });
+                        countrySelectionDiv.appendChild(tile);
+                    });
+                } else {
+                    countrySelectionDiv.innerHTML = '<p>No country filter available for this dataset.</p>';
+                }
+            });
+    }
+
     function renderSpreadsheet() {
         const params = new URLSearchParams();
-        params.append('config', configName);
+        params.append('dataset', activeDatasetName);
         if (selectedCountries.length > 0) {
             params.append('countries', selectedCountries.join(','));
         }
@@ -78,8 +151,8 @@ document.addEventListener('DOMContentLoaded', () => {
             .then(response => response.json())
             .then(response => {
                 const { headers, data } = response;
-                tableHead.innerHTML = ''; // Clear previous headers
-                tableBody.innerHTML = ''; // Clear previous rows
+                tableHead.innerHTML = '';
+                tableBody.innerHTML = '';
 
                 if (data.length > 0) {
                     headers.forEach(header => {
@@ -139,15 +212,13 @@ document.addEventListener('DOMContentLoaded', () => {
         const expander = parentRow.querySelector('.expand-icon');
 
         if (nextRow && nextRow.dataset.level > parentRow.dataset.level) {
-            // Collapse
             while (parentRow.nextElementSibling && parentRow.nextElementSibling.dataset.level > parentRow.dataset.level) {
                 parentRow.nextElementSibling.remove();
             }
             expander.textContent = '+';
         } else {
-            // Expand
             const fragment = document.createDocumentFragment();
-            renderRows(children, fragment, level, headers);
+            renderRows(children, fragment, level + 1, headers);
             parentRow.after(fragment);
             expander.textContent = '-';
         }
@@ -156,11 +227,11 @@ document.addEventListener('DOMContentLoaded', () => {
     function renderPieChart() {
         const ctx = document.getElementById('population-pie-chart').getContext('2d');
         if (myPieChart) {
-            myPieChart.destroy(); // Destroy existing chart before creating a new one
+            myPieChart.destroy();
         }
 
         const params = new URLSearchParams();
-        params.append('config', configName);
+        params.append('dataset', activeDatasetName);
         if (selectedCountries.length > 0) {
             params.append('countries', selectedCountries.join(','));
         }
@@ -198,7 +269,5 @@ document.addEventListener('DOMContentLoaded', () => {
             });
     }
 
-    // Initial load
-    fetchCountries();
-    renderSpreadsheet(); // Render spreadsheet by default
+    fetchDatasets();
 });
