@@ -1,3 +1,4 @@
+
 from flask import Flask, render_template, jsonify, request
 import pandas as pd
 import json
@@ -13,7 +14,7 @@ def create_nested_structure(df, drill_down_fields, sum_columns, calculated_colum
             for col in df.columns:
                 item[col] = row[col]
             if df.columns.any():
-                item['name'] = row[df.columns[0]]
+                item['name'] = "details"
             data.append(item)
         return data
 
@@ -39,9 +40,8 @@ def create_nested_structure(df, drill_down_fields, sum_columns, calculated_colum
         else:
             group_dict['children'] = group_df.to_dict(orient='records')
             if not group_df.empty and group_df.columns.any():
-                name_col = group_df.columns[0]
                 for child in group_dict['children']:
-                    child['name'] = child.get(name_col, '')
+                    child['name'] = "details"
 
         data.append(group_dict)
     return data
@@ -49,6 +49,10 @@ def create_nested_structure(df, drill_down_fields, sum_columns, calculated_colum
 @app.route('/')
 def index():
     return render_template('index.html')
+
+@app.route('/3d')
+def view_3d():
+    return render_template('3d_view.html')
 
 @app.route('/datasets')
 def get_datasets():
@@ -69,23 +73,36 @@ def get_data():
     if not dataset_config:
         return jsonify({"error": "Dataset not found"}), 404
 
-    config_path = dataset_config.get('config_path')
-
-    if config_path and os.path.exists(config_path):
-        with open(config_path) as f:
-            config = json.load(f)
-    else:
-        df = pd.read_csv(dataset_config['csv_path'])
+    if dataset_config.get('type') == 'merged':
+        merged_df = pd.DataFrame()
+        for source in dataset_config['sources']:
+            df = pd.read_csv(source['path'])
+            df['source'] = source['name']
+            merged_df = pd.concat([merged_df, df], ignore_index=True)
+        df = merged_df
         config = {
-            "csv_path": dataset_config['csv_path'],
-            "drill_down_fields": [],
-            "sum_columns": [],
+            "drill_down_fields": ['source'] + list(df.columns[:-1]),
+            "sum_columns": ['Value', 'Count'],
             "label_columns": [],
             "calculated_columns": [],
             "display_columns": [{"name": col, "color": "GREY"} for col in df.columns]
         }
-
-    df = pd.read_csv(config['csv_path'])
+    else:
+        config_path = dataset_config.get('config_path')
+        if config_path and os.path.exists(config_path):
+            with open(config_path) as f:
+                config = json.load(f)
+        else:
+            df = pd.read_csv(dataset_config['csv_path'])
+            config = {
+                "csv_path": dataset_config['csv_path'],
+                "drill_down_fields": [],
+                "sum_columns": [],
+                "label_columns": [],
+                "calculated_columns": [],
+                "display_columns": [{"name": col, "color": "GREY"} for col in df.columns]
+            }
+        df = pd.read_csv(config['csv_path'])
 
     countries = request.args.get('countries')
     if countries and 'Nation' in df.columns:

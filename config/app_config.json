@@ -6,7 +6,9 @@
       "config_path": "config/population.json",
       "color": "#FFC0CB",
       "order": 1,
-      "group": "Demographics"
+      "group": "Demographics",
+      "main": true,
+      "filter_columns": ["Continent", "Nation"]
     },
     {
       "name": "GDP",
@@ -15,6 +17,14 @@
       "color": "#B0E0E6",
       "order": 2,
       "group": "Demographics"
+    },
+    {
+        "name": "Sales",
+        "csv_path": "data/sales.csv",
+        "config_path": "config/sales.json",
+        "color": "#98FB98",
+        "order": 3,
+        "group": "Sales"
     },
     {
       "name": "OECD GDP",

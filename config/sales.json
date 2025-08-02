@@ -1,0 +1,16 @@
+{
+    "csv_path": "data/sales.csv",
+    "drill_down_fields": ["Region", "Country", "Manager", "Distributor_Group", "Distributor"],
+    "sum_columns": ["sell_in_value", "sell_in_count", "sell_out_value", "sell_out_count", "inventory_value", "inventory_count"],
+    "label_columns": [],
+    "calculated_columns": [],
+    "display_columns": [
+        {"name": "name", "color": "GREY"},
+        {"name": "sell_in_value", "color": "BLUE"},
+        {"name": "sell_in_count", "color": "BLUE"},
+        {"name": "sell_out_value", "color": "GREEN"},
+        {"name": "sell_out_count", "color": "GREEN"},
+        {"name": "inventory_value", "color": "RED"},
+        {"name": "inventory_count", "color": "RED"}
+    ]
+}

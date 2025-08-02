@@ -106,6 +106,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         if (tabId === 'spreadsheet') {
+            tableBody.innerHTML = '<tr><td colspan="100%">Loading...</td></tr>';
             renderSpreadsheet();
             fetchCountries();
         } else if (tabId === 'pie-chart') {

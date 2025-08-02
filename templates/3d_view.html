@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D View</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='3d_view.css') }}">
+</head>
+<body>
+    <div id="container"></div>
+    <div id="info">
+        <button id="back-button" style="display: none;">Back</button>
+        <div id="description">Description of the view</div>
+    </div>
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+                "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/",
+                "@tweenjs/tween.js": "https://unpkg.com/@tweenjs/tween.js@23.1.1/dist/tween.esm.js"
+            }
+        }
+    </script>
+    <script type="module" src="{{ url_for('static', filename='3d_view.js') }}"></script>
+</body>
+</html>
