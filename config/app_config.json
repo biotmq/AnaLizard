@@ -8,7 +8,8 @@
       "order": 1,
       "group": "Demographics",
       "main": true,
-      "filter_columns": ["Continent", "Nation"]
+      "filter_columns": ["Continent", "Nation"],
+      "value_column": "People"
     },
     {
       "name": "GDP",
@@ -16,7 +17,8 @@
       "config_path": "config/gdp.json",
       "color": "#B0E0E6",
       "order": 2,
-      "group": "Demographics"
+      "group": "Demographics",
+      "value_column": "GDP"
     },
     {
         "name": "Sales",
@@ -24,7 +26,8 @@
         "config_path": "config/sales.json",
         "color": "#98FB98",
         "order": 3,
-        "group": "Sales"
+        "group": "Sales",
+        "value_column": "sell_in_value"
     },
     {
       "name": "OECD GDP",
@@ -32,7 +35,8 @@
       "config_path": "config/oecd_gdp.json",
       "color": "#FFD700",
       "order": 4,
-      "group": "OECD"
+      "group": "OECD",
+      "value_column": "GDP_USD_Billion"
     },
     {
       "name": "OECD Inflation",
@@ -40,7 +44,8 @@
       "config_path": "config/oecd_inflation.json",
       "color": "#FF8C00",
       "order": 5,
-      "group": "OECD"
+      "group": "OECD",
+      "value_column": "Inflation_Rate"
     },
     {
       "name": "OECD Unemployment",
@@ -48,7 +53,8 @@
       "config_path": "config/oecd_unemployment.json",
       "color": "#DC143C",
       "order": 6,
-      "group": "OECD"
+      "group": "OECD",
+      "value_column": "Unemployment_Rate"
     },
     {
       "name": "Raw Data Example",
